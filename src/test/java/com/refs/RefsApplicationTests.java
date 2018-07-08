@@ -1,4 +1,4 @@
-package com.refs.refs;
+package com.refs;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
