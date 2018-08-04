@@ -1,6 +1,10 @@
 package com.refs.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Advertisement {
@@ -14,8 +18,24 @@ public class Advertisement {
     private String url;
     private String date;
     private String bubu;
+
+    @ManyToMany
+    @JoinTable(name = "advertisement_category",
+            joinColumns = @JoinColumn(name = "advertisement_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+    private Set<Category> categories = new HashSet<>();
+
+    @Enumerated(value = EnumType.STRING)
+    private Availability availability;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "advertisement")
+    private Set<Comment> comments = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
+
     @OneToOne(cascade = CascadeType.ALL)
-    private Category category;
+    private AdvertisementInfo advertisementInfo;
 
     public String getBubu() {
         return bubu;
@@ -59,12 +79,12 @@ public class Advertisement {
         this.date = date;
     }
 
-    public Category getCategory() {
-        return category;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public Long getId() {
@@ -74,4 +94,37 @@ public class Advertisement {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Availability getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Availability availability) {
+        this.availability = availability;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public AdvertisementInfo getAdvertisementInfo() {
+        return advertisementInfo;
+    }
+
+    public void setAdvertisementInfo(AdvertisementInfo advertisementInfo) {
+        this.advertisementInfo = advertisementInfo;
+    }
+
 }

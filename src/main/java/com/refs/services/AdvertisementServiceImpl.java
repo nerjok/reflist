@@ -59,12 +59,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public AdvertisementCommand saveAdvertisementCommand(AdvertisementCommand command) {
-
-        //Advertisement detachedAdvertisement = advertisementCommandToAdvertisement,convert(command);
+        log.debug("ASIMPL0");
         Advertisement detachedAdvertisement = advertisementCommandToAdvertisement.convert(command);
-
+        log.debug("ASIMPL1");
         Advertisement savedAdvertisement = advertisementRepository.save(detachedAdvertisement);
-
+        log.debug("ASIMPL2");
         return advertisementToAdvertisementCommand.convert(savedAdvertisement);
     }
 

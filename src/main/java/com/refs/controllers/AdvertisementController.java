@@ -2,7 +2,9 @@ package com.refs.controllers;
 
 
 import com.refs.commands.AdvertisementCommand;
+import com.refs.models.Category;
 import com.refs.services.AdvertisementService;
+import com.refs.services.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class AdvertisementController {
 
     private final AdvertisementService advertisementService;
+    private final CategoryService category;
 
-    public AdvertisementController(AdvertisementService advertisementService) {
+    public AdvertisementController(AdvertisementService advertisementService, CategoryService category) {
         this.advertisementService = advertisementService;
+        this.category = category;
     }
 
     @RequestMapping({"advertisement/", "advertisement"})
@@ -40,6 +44,7 @@ public class AdvertisementController {
     @GetMapping("advertisement/new")
     public String newRecipe(Model model){
         model.addAttribute("advertisement", new AdvertisementCommand());
+        model.addAttribute("categories", category.getCategories());
 
         return "advertisements/advertisementform";
     }
@@ -52,9 +57,12 @@ public class AdvertisementController {
 
     @PostMapping({"advertisement", "advertisement/"})
     public String saveOrUpdate(@ModelAttribute AdvertisementCommand command){
+        //return "redirect:/advertisement";
+
         AdvertisementCommand savedCommand = advertisementService.saveAdvertisementCommand(command);
 
         return "redirect:/advertisement/" + savedCommand.getId() + "/show";
+
     }
 
     @GetMapping("advertisement/{id}/delete")

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Index file</title>
+    <title>Category List</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -19,22 +19,24 @@
 
 </head>
 <body>
+<!--/*@thymesVar id="category" type="com.refs.models.Category"*/-->
 <div class="container" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
 
                 <div class="panel-heading">
-                    <h1 class="panel-title">Show advertisement!</h1>
+                    <h1 class="panel-title">My categories!</h1>
                 </div>
                 <div class="panel-body">
+
+                    <a href="/category/new">New Category</a>
                     <table class="table">
                         <thead class="thead-inverse">
                         <tr>
                             <th>ID</th>
                             <th>Description</th>
                             <th>View</th>
-                            <th>Advertisement Info</th>
                             <th>Update</th>
                             <th>Delete</th>
                         </tr>
@@ -55,17 +57,19 @@
                             <td>Delete</td>
                         </tr>
 
-                        <tr>
-                            <td th:text="${advertisement.id}">ID</td>
-                            <td th:text="${advertisement.title}">sdsfsd</td>
-                            <td th:text="${advertisement.description}">View</td>
-                            <td th:if="${advertisement.advertisementInfo}" th:text="${advertisement.advertisementInfo.advertisementInfo}">advertisement info</td>
-                            <td th:text="${advertisement.date}">Update</td>
-                            <td>Delete</td>
+                        <tr >
+                            <td th:text="${category.id}">ID</td>
+                            <td th:text="${category.name}">sdsfsd</td>
+                            <td th:text="${category.availability}">View</a></td>
+                            <td th:text="${category.data}">Update</td>
+                            <td >
+                                <a href="#" th:href="@{'/advertisement/' + ${category.id} + '/show'}" th:text="${category.description}">View</a>
+                                <a href="#" th:href="@{'/advertisement/' + ${category.id} + '/update'}">Update</a>
+                                <a href="#" th:href="@{'/advertisement/' + ${category.id} + '/delete'}">Delete</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
@@ -73,8 +77,3 @@
 </div>
 </body>
 </html>
-<script>
-    $(document).ready(function() {
-console.log('kuku');
-    });
-</script>

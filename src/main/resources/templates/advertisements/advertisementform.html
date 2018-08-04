@@ -19,6 +19,9 @@
 
 </head>
 <body>
+<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Advertisement"*/-->
+<!--/*@thymesVar id="category" type="com.refs.models.Category"*/-->
+<!--/*@thymesVar id="advertisementinfo" type="com.refs.models.AdvertisementInfo"*/-->
 <div class="container" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -47,6 +50,57 @@
                         <div class="form-group">
                             <label>URL:</label>
                             <input type="text" class="form-control" th:field="*{title}"/>
+                        </div>
+
+                        <!-- List of available categories manyToMany -->
+                        <div class="row" th:if="${not #lists.isEmpty(categories)}">
+                            <div class="col-md-3 form-group">
+                                <label>Categories:</label>
+                            </div>
+                            <div class="col-md-9 form-group">
+                                <div class="radio" th:each="category : ${categories}">
+                                    <label th:text="${category.name}">
+                                        Cat 1
+                                    </label>
+                                    <input type="checkbox" th:value="${category.id}" th:field="*{categories}"/>
+                                </div>
+                                <div class="radio" th:remove="all">
+                                    <label>
+                                        <input type="checkbox" value=""/>
+                                        Cat 2
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!== List of advertisement info OneToOne relation -->
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h1 class="panel-title">Advertisement Info</h1>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <textarea class="form-control" rows="3" th:field="*{advertisementInfo.advertisementInfo}" ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 form-group">
+                            <label>Availability:</label>
+                            <select class="form-control" th:field="*{availability}">
+
+                                <option th:each="availabilityValue : ${T(com.refs.models.Availability).values()}"
+                                        th:value="${availabilityValue.name()}"
+                                        th:text="${availabilityValue.name()}"
+                                >val</option>
+                            </select>
+                            <select class="form-control" th:remove="all">
+                                <option>Easy</option>
+                                <option>Medium</option>
+                                <option>Hard</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

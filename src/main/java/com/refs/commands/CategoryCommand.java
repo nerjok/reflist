@@ -1,7 +1,6 @@
 package com.refs.commands;
 
 
-import com.refs.models.Availability;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,28 +15,20 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AdvertisementCommand {
+public class CategoryCommand {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
 
-    private String bubu;
-
-    private String date;
+    private String data;
 
     private String description;
 
-    private String title;
+    private String availability;
 
-    private String url;
-
-    private  Long category_id;
-
-    private Availability availability;
-
-    private Set<CategoryCommand> categories = new HashSet<>();
-
-    private AdvertisementInfoCommand advertisementInfo;
+    private Set<AdvertisementCommand> advertisements = new HashSet<>();
 
 }

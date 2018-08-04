@@ -1,11 +1,8 @@
 package com.refs.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Category {
@@ -15,6 +12,8 @@ public class Category {
     private Long id;
     private String name;
     private String data;
+    private String description;
+    private String availability;
 
     public String getData() {
         return data;
@@ -24,8 +23,24 @@ public class Category {
         this.data = data;
     }
 
-    @OneToOne
-    private Advertisement advertisement;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
+    }
+
+    @ManyToMany(mappedBy = "categories")
+    private Set<Advertisement> advertisements;
 
     public Long getId() {
         return id;
@@ -43,11 +58,11 @@ public class Category {
         this.name = name;
     }
 
-    public Advertisement getAdvertisement() {
-        return advertisement;
+    public Set<Advertisement> getAdvertisement() {
+        return advertisements;
     }
 
-    public void setAdvertisement(Advertisement advertisement) {
-        this.advertisement = advertisement;
+    public void setAdvertisement(Set<Advertisement> advertisements) {
+        this.advertisements = advertisements;
     }
 }
