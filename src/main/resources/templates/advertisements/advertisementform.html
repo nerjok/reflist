@@ -64,6 +64,28 @@
                                     </label>
                                     <input type="checkbox" th:value="${category.id}" th:field="*{categories}"/>
                                 </div>
+
+
+                                <div class="radio" th:remove="all">
+                                    <label>
+                                        <input type="checkbox" value=""/>
+                                        Cat 2
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 222 List of available categories manyToMany -->
+                        <div class="row" th:if="${not #lists.isEmpty(categories)}">
+                            <div class="col-md-3 form-group">
+                                <label>Categories:</label>
+                            </div>
+                            <div class="col-md-9 form-group">
+                                <select class="radio" multiple="multiple" th:field="*{categories}">
+                                    <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category}"/>
+                                </select>
+
+
                                 <div class="radio" th:remove="all">
                                     <label>
                                         <input type="checkbox" value=""/>

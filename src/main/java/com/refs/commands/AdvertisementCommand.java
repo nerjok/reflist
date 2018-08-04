@@ -36,6 +36,8 @@ public class AdvertisementCommand {
 
     private Availability availability;
 
+    private Set<CommentCommand> comments = new HashSet();
+
     private Set<CategoryCommand> categories = new HashSet<>();
 
     private AdvertisementInfoCommand advertisementInfo;

@@ -35,10 +35,12 @@ public class AdvertisementCommandToAdvertisement implements Converter<Advertisem
         //advertisement.setAdvertisementInfo(source.getAdvertisementInfo());
         advertisement.setAdvertisementInfo(advertisementInfoConverter.convert(source.getAdvertisementInfo()));
 
-        if (source.getCategories() != null && source.getCategories().size() > 0){
+        //if (source.getCategories() != null && source.getCategories().size() > 0){
+            /*
             source.getCategories()
                     .forEach( category -> advertisement.getCategories().add(categoryConveter.convert(category)));
-        }
+                    */
+        //}
         return advertisement;
     }
 }

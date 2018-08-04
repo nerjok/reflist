@@ -25,8 +25,6 @@ public class Advertisement {
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private Set<Category> categories = new HashSet<>();
 
-    @Enumerated(value = EnumType.STRING)
-    private Availability availability;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "advertisement")
     private Set<Comment> comments = new HashSet<>();
@@ -36,6 +34,9 @@ public class Advertisement {
 
     @OneToOne(cascade = CascadeType.ALL)
     private AdvertisementInfo advertisementInfo;
+
+    @Enumerated(value = EnumType.STRING)
+    private Availability availability;
 
     public String getBubu() {
         return bubu;

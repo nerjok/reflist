@@ -2,6 +2,8 @@ package com.refs.controllers;
 
 
 import com.refs.commands.AdvertisementCommand;
+import com.refs.commands.CategoryCommand;
+import com.refs.commands.CommentCommand;
 import com.refs.models.Category;
 import com.refs.services.AdvertisementService;
 import com.refs.services.CategoryService;
@@ -37,6 +39,7 @@ public class AdvertisementController {
     public String showById(@PathVariable String id, Model model){
 
         model.addAttribute("advertisement", advertisementService.findById(new Long(id)));
+        model.addAttribute("comment", new CommentCommand());
 
         return "advertisements/show";
     }
@@ -45,7 +48,6 @@ public class AdvertisementController {
     public String newRecipe(Model model){
         model.addAttribute("advertisement", new AdvertisementCommand());
         model.addAttribute("categories", category.getCategories());
-
         return "advertisements/advertisementform";
     }
 
