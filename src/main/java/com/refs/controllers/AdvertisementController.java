@@ -7,6 +7,7 @@ import com.refs.commands.CommentCommand;
 import com.refs.models.Category;
 import com.refs.services.AdvertisementService;
 import com.refs.services.CategoryService;
+import com.refs.services.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +19,12 @@ public class AdvertisementController {
 
     private final AdvertisementService advertisementService;
     private final CategoryService category;
+    private final CommentService comment;
 
-    public AdvertisementController(AdvertisementService advertisementService, CategoryService category) {
+    public AdvertisementController(AdvertisementService advertisementService, CategoryService category, CommentService comment) {
         this.advertisementService = advertisementService;
         this.category = category;
+        this.comment = comment;
     }
 
     @RequestMapping({"advertisement/", "advertisement"})
@@ -54,6 +57,7 @@ public class AdvertisementController {
     @GetMapping("advertisement/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model){
         model.addAttribute("advertisement", advertisementService.findCommandById(Long.valueOf(id)));
+        model.addAttribute("categories", category.getCategories());
         return "advertisements/advertisementform";
     }
 
@@ -74,5 +78,19 @@ public class AdvertisementController {
 
         advertisementService.deleteById(Long.valueOf(id));
         return "redirect:/advertisement";
+    }
+
+
+    @PostMapping("advertisement/{id}/comment")
+    public String saveComment(@PathVariable String id , Model model, @ModelAttribute CommentCommand command) {
+
+        CommentCommand savedComment = comment.saveCommentCommand(command);
+
+        model.addAttribute("advertisement", advertisementService.findById(new Long(id)));
+        model.addAttribute("comment", new CommentCommand());
+
+
+
+        return "redirect:/advertisement/{id}/show";
     }
 }

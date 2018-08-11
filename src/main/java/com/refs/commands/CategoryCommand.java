@@ -21,7 +21,7 @@ public class CategoryCommand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    public String name;
 
     private String data;
 

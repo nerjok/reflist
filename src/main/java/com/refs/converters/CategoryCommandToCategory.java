@@ -21,6 +21,7 @@ public class CategoryCommandToCategory implements Converter<CategoryCommand, Cat
         category.setName(source.getName());
         category.setDescription(source.getDescription());
         category.setAvailability(source.getAvailability());
+        category.setData(source.getData());
         //category.setAdvertisement(source.getAdvertisements());
         return category;
     }

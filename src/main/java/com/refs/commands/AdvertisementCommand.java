@@ -38,7 +38,9 @@ public class AdvertisementCommand {
 
     private Set<CommentCommand> comments = new HashSet();
 
-    private Set<CategoryCommand> categories = new HashSet<>();
+    //private Set<CategoryCommand> categories = new HashSet<>();
+
+    private String[] categories;
 
     private AdvertisementInfoCommand advertisementInfo;
 
