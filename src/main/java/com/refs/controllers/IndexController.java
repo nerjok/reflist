@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Slf4j
 @Controller
@@ -18,7 +21,8 @@ public class IndexController {
         //System.out.print("Hello World");
 
 
-        //model.addAttribute("recipes", recipeService.getRecipes());
+    Set<String> advertisement = new HashSet<>();
+        model.addAttribute("advertisements", advertisement);
 
         return "index";
     }
