@@ -3,6 +3,7 @@ package com.refs.services;
 import com.refs.commands.AdvertisementCommand;
 import com.refs.converters.AdvertisementCommandToAdvertisement;
 import com.refs.converters.AdvertisementToAdvertisementCommand;
+import com.refs.exceptions.NotFoundException;
 import com.refs.models.Advertisement;
 import com.refs.repository.AdvertisementRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -44,9 +45,14 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         log.debug("dsfsdf");
 
         Optional<Advertisement> advertisement = advertisementRepository.findById(id);
-
+/*
         if (!advertisement.isPresent()) {
             throw new RuntimeException("Advertisement Not Found!");
+        }
+        */
+        if (!advertisement.isPresent()) {
+            //throw new RuntimeException("Recipe Not Found!");
+            throw new NotFoundException("Advertisement Not Found for id value: " + id.toString());
         }
 
         return advertisement.get();

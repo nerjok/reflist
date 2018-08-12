@@ -21,7 +21,7 @@
 <body>
 <div class="container" style="margin-top: 20px">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-12">
             <div class="panel panel-primary">
 
                 <div class="panel-heading">
@@ -35,6 +35,7 @@
                             <th>Description</th>
                             <th>View</th>
                             <th>Advertisement Info</th>
+                            <th>Categories</th>
                             <th>Update</th>
                             <th>Delete</th>
                         </tr>
@@ -60,7 +61,9 @@
                             <td th:text="${advertisement.title}">sdsfsd</td>
                             <td th:text="${advertisement.description}">View</td>
                             <td th:if="${advertisement.advertisementInfo}" th:text="${advertisement.advertisementInfo.advertisementInfo}">advertisement info</td>
-
+                            <td >
+                                <p th:if="${advertisement.categories}" th:each="category: ${advertisement.categories}" th:text="${category.name}"></p><br/>
+                            </td>
                             <td th:text="${advertisement.date}">Update</td>
                             <td>Delete</td>
                         </tr>

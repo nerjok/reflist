@@ -10,6 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,15 +25,15 @@ public class AdvertisementCommand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Size(min = 3, max = 255)
     private String bubu;
-
+    @Size(min = 3, max = 255)
     private String date;
-
+    @Size(min = 3, max = 255)
     private String description;
-
+    @Size(min = 3, max = 255)
     private String title;
-
+    @Size(min = 3, max = 255)
     private String url;
 
     private  Long category_id;
@@ -40,8 +44,13 @@ public class AdvertisementCommand {
 
     //private Set<CategoryCommand> categories = new HashSet<>();
 
-    private String[] categories;
+    public Long[] categories;
 
     private AdvertisementInfoCommand advertisementInfo;
 
+    public Boolean isChecked(Long[] fullArr, Long advertisementId) {
+
+        return Arrays.asList(fullArr).contains(advertisementId);
+        //return true;
+    }
 }

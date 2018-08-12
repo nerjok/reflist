@@ -3,6 +3,7 @@ package com.refs.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -126,6 +127,10 @@ public class Advertisement {
 
     public void setAdvertisementInfo(AdvertisementInfo advertisementInfo) {
         this.advertisementInfo = advertisementInfo;
+    }
+
+    public Boolean isChecked(Array fullArr, Long advertisementId) {
+        return true;
     }
 
 }

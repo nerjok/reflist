@@ -6,6 +6,7 @@ import com.refs.commands.AdvertisementInfoCommand;
 import com.refs.models.Advertisement;
 import com.refs.models.Category;
 import com.refs.services.CategoryService;
+import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ public class AdvertisementCommandToAdvertisement implements Converter<Advertisem
         this.categoryService = categoryService;
     }
 
+    @Synchronized
     @Override
     public Advertisement convert(AdvertisementCommand source) {
     log.debug("saving data");
@@ -39,31 +41,31 @@ public class AdvertisementCommandToAdvertisement implements Converter<Advertisem
         //advertisement.setAdvertisementInfo(source.getAdvertisementInfo());
         advertisement.setAdvertisementInfo(advertisementInfoConverter.convert(source.getAdvertisementInfo()));
 
+
         if(source.getCategories() != null && source.getCategories().length > 0) {
-          //  source.getCategories()
-          //          .forEach( category -> advertisement.getCategories().add(categoryConveter.convert(category)));
 
             for(int i = 0;i < source.getCategories().length; i++) {
 
             }
 
-            for(String s :source.getCategories()) {
-                log.debug(s);
-                Long categoryId =  Long.parseLong(s);
+            for(Long s :source.getCategories()) {
+                log.debug(s.toString());
+                Long categoryId =  s;//Long.parseLong(s);
 
                 Category category = categoryService.findById(categoryId);
                 advertisement.getCategories().add(category);
 
             }
         }
+/*
+        if (source.getCategories() != null && source.getCategories().size() > 0){
 
-        //if (source.getCategories() != null && source.getCategories().size() > 0){
-            /*
 
             source.getCategories()
                     .forEach( category -> advertisement.getCategories().add(categoryConveter.convert(category)));
-                    */
-        //}
+
+        }
+        */
         return advertisement;
     }
 }

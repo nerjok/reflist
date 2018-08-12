@@ -38,21 +38,44 @@
                         <div class="form-group">
                             <label>bubu:</label>
                             <input type="text" class="form-control" th:field="*{bubu}"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('bubu')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('bubu')}" th:text="${err}"/>
+                                        </ul>
+                            </span>
                         </div>
                         <div class="form-group">
                             <label>URL:</label>
                             <input type="text" class="form-control" th:field="*{url}"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('url')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('url')}" th:text="${err}"/>
+                                        </ul>
+                            </span>
                         </div>
                         <div class="form-group">
                             <label>Description:</label>
                             <input type="text" class="form-control" th:field="*{description}"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('description')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
+                                        </ul>
+                            </span>
                         </div>
                         <div class="form-group">
-                            <label>URL:</label>
+                            <label>Title:</label>
                             <input type="text" class="form-control" th:field="*{title}"/>
+
+                            <span class="help-block" th:if="${#fields.hasErrors('title')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('title')}" th:text="${err}"/>
+                                        </ul>
+                            </span>
+
                         </div>
 
                         <!-- List of available categories manyToMany -->
+                        <!--
                         <div class="row" th:if="${not #lists.isEmpty(categories)}">
                             <div class="col-md-3 form-group">
                                 <label>Categories:</label>
@@ -74,7 +97,29 @@
                                 </div>
                             </div>
                         </div>
+-->
 
+                        <div class="row" th:if="${not #lists.isEmpty(categories)}">
+                            <div class="col-md-3 form-group">
+                                <label>Categories:</label>
+                            </div>
+                            <div class="col-md-9 form-group">
+                                <div class="radio" th:each="category : ${categories}">
+                                    <label th:text="${category.name}">
+                                        Cat 1
+                                    </label>
+                                    <input type="checkbox" th:checked="(${advertisement.categories != null} AND ${advertisement.categories.length > 0} AND ${advertisement.isChecked(advertisement.categories, category.id)}) ? ${true} : ${false}" th:value="${category.id}" name="categories"/>
+                                </div>
+
+
+                                <div class="radio" th:remove="all">
+                                    <label>
+                                        <input type="checkbox" value=""/>
+                                        Cat 2
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <!-- 222 List of available categories manyToMany -->
                         <!--
                         <div class="row" th:if="${not #lists.isEmpty(categories)}">
