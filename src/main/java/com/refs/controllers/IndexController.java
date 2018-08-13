@@ -22,7 +22,7 @@ public class IndexController {
 
 
     Set<String> advertisement = new HashSet<>();
-        model.addAttribute("advertisements", advertisement);
+        model.addAttribute("advertisements2", advertisement);
 
         return "index";
     }

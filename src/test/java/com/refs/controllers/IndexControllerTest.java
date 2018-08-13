@@ -31,7 +31,7 @@ public class IndexControllerTest {
         String viewName = indexController.getIndexPage(model);
 
         assertEquals("index", viewName);
-        verify(model, times(1)).addAttribute(eq("advertisements"), anySet());
+        verify(model, times(1)).addAttribute(eq("advertisements2"), anySet());
         //verify(indexController, times(1)).getIndexPage();
     }
 }
