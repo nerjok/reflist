@@ -59,6 +59,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
+    @Transactional
     public AdvertisementCommand findCommandById(Long id) {
         return advertisementToAdvertisementCommand.convert(findById(id));
     }
