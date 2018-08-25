@@ -26,4 +26,10 @@ public class IndexController {
 
         return "index";
     }
+
+    @RequestMapping({"/login", "/login"})
+    public String getLoginForm(Model model) {
+        return "login";
+    }
+
 }
