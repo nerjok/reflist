@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{layouts/index}" xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layouts/index}" lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml">
 <body>
-<!--/*@thymesVar id="category" type="com.refs.models.Category"*/-->
+<!--/*@thymesVar id="categories" type="java.util.List"*/-->
+<!--/*@thymesVar id="category" type="com.refs.models.User"*/-->
 <div class="container" style="margin-top: 20px" layout:fragment="content">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
 
                 <div class="panel-heading">
-                    <h1 class="panel-title">My categories!</h1>
+                    <h1 class="panel-title">My users!</h1>
                 </div>
                 <div class="panel-body">
 
-                    <a href="/category/new">New Category</a>
-                    <table class="table">
+                    <a href="/user/new">New User</a>
+                    <table class="table" th:if="${not #lists.isEmpty(users)}">
                         <thead class="thead-inverse">
                         <tr>
                             <th>ID</th>
-                            <th>Description</th>
-                            <th>View</th>
-                            <th>Update</th>
+                            <th>Name</th>
+                            <th>Lastname</th>
+                            <th>Parent User</th>
+                            <th>Role</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
@@ -40,15 +42,16 @@
                             <td>Delete</td>
                         </tr>
 
-                        <tr >
-                            <td th:text="${category.id}">ID</td>
-                            <td th:text="${category.name}">sdsfsd</td>
-                            <td th:text="${category.availability}">View</a></td>
-                            <td th:text="${category.data}">Update</td>
+                        <tr th:each="user : ${users}" >
+                            <td th:text="${user.id}">ID</td>
+                            <td th:text="${user.name}">sdsfsd</td>
+                            <td th:text="${user.lastName}">View</a></td>
+                            <td th:text="${user.parentUser}">Update</td>
+                            <td th:text="${user.userRole}">Update</td>
                             <td >
-                                <a href="#" th:href="@{'/advertisement/' + ${category.id} + '/show'}" th:text="${category.description}">View</a>
-                                <a href="#" th:href="@{'/advertisement/' + ${category.id} + '/update'}">Update</a>
-                                <a href="#" th:href="@{'/advertisement/' + ${category.id} + '/delete'}">Delete</a>
+                                <a href="#" th:href="@{'/users/' + ${user.id} + '/show'}">View</a>
+                                <a href="#" th:href="@{'/users/' + ${user.id} + '/update'}">Update</a>
+                                <a href="#" th:href="@{'/users/' + ${user.id} + '/delete'}">Delete</a>
                             </td>
                         </tr>
                         </tbody>

@@ -1,19 +1,19 @@
-package com.refs.models;
+package com.refs.commands;
 
-
-import lombok.Data;
+import com.refs.models.Advertisement;
+import com.refs.models.UserRole;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Data
 @Getter
 @Setter
-@Entity
-public class User {
+@NoArgsConstructor
+public class UserCommand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +23,9 @@ public class User {
 
     private String lastName;
 
-    private String password;
-
-    @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
 
     private Long parentUser;
 
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Advertisement> advertisement = new HashSet<>();
-
+    private String password;
 }

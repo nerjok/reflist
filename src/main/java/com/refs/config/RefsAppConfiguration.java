@@ -4,6 +4,8 @@ package com.refs.config;
 
 
 import lombok.extern.slf4j.Slf4j;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
@@ -21,18 +24,26 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 @EnableWebSecurity
 public class RefsAppConfiguration extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private AuthentificationHandler successHandler;
+
+    public RefsAppConfiguration(AuthentificationHandler successHandler) {
+        this.successHandler = successHandler;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/").permitAll()
+                    .antMatchers("/", "/assets/**", "/webjars/**").permitAll()
+                    .antMatchers("/login").anonymous()
                     .anyRequest().authenticated()
                     .antMatchers("/advertisement/**").hasRole("USER").and().exceptionHandling().accessDeniedPage("/")
                     .and()
 
                 .formLogin()
-                    .loginPage("/login")
+                .successHandler(successHandler)
+                .loginPage("/login")
                     .permitAll()
                     .and()
                 .logout()
@@ -51,6 +62,17 @@ public class RefsAppConfiguration extends WebSecurityConfigurerAdapter {
 
         return new InMemoryUserDetailsManager(user);
     }
+
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
+    }
+/*
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    */
 }
 /*
 

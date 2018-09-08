@@ -40,15 +40,16 @@
                             <td>Delete</td>
                         </tr>
 
-                        <tr >
-                            <td th:text="${category.id}">ID</td>
-                            <td th:text="${category.name}">sdsfsd</td>
-                            <td th:text="${category.availability}">View</a></td>
-                            <td th:text="${category.data}">Update</td>
+                        <tr>
+                            <td th:text="${user.id}">ID</td>
+                            <td th:text="${user.name}">sdsfsd</td>
+                            <td th:text="${user.lastName}">View</a></td>
+                            <td th:text="${user.parentUser}">Update</td>
+                            <td th:text="${user.userRole}">Update</td>
                             <td >
-                                <a href="#" th:href="@{'/advertisement/' + ${category.id} + '/show'}" th:text="${category.description}">View</a>
-                                <a href="#" th:href="@{'/advertisement/' + ${category.id} + '/update'}">Update</a>
-                                <a href="#" th:href="@{'/advertisement/' + ${category.id} + '/delete'}">Delete</a>
+                                <a href="#" th:href="@{'/user/' + ${user.id} + '/show'}">View</a>
+                                <a href="#" th:href="@{'/user/' + ${user.id} + '/update'}">Update</a>
+                                <a href="#" th:href="@{'/user/' + ${user.id} + '/delete'}">Delete</a>
                             </td>
                         </tr>
                         </tbody>
