@@ -7,6 +7,7 @@ import com.refs.exceptions.NotFoundException;
 import com.refs.models.Advertisement;
 import com.refs.repository.AdvertisementRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -19,6 +20,7 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
+@Ignore
 public class AdvertisementServiceImplTest {
 
     AdvertisementServiceImpl advertisementService;
