@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
     ...
 </head>
@@ -14,18 +16,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand" href="/">Brand</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#" th:href="@{'/advertisement/'}">Advertisements <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#" th:href="@{'/advertisement/new'}">New Advertisement</a></li>
-                    <li><a href="#" th:href="@{'/categories/'}">Categories</a></li>
-                    <li><a href="#" th:href="@{'/category/new'}">New category</a></li>
-                    <li><a href="#" th:href="@{'/users/'}">Users</a></li>
-                    <li><a href="#" th:href="@{'/users/new'}">New user</a></li>
+                    <li ><a href="#" th:href="@{'/advertisement/new'}">New Advertisement</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/categories/'}">Categories</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/category/new'}">New category</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/users/'}">Users</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/users/new'}">New user</a></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
@@ -33,6 +35,7 @@
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
+
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">[[${#httpServletRequest.remoteUser}]] <span class="caret"></span></a>

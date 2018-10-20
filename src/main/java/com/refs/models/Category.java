@@ -40,7 +40,7 @@ public class Category {
     }
 
     @ManyToMany(mappedBy = "categories")
-    private Set<Advertisement> advertisements;
+    public Set<Advertisement> advertisements;
 
     public Long getId() {
         return id;

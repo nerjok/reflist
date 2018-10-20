@@ -28,4 +28,6 @@ public class UserCommand {
     private Long parentUser;
 
     private String password;
+
+    private String username;
 }

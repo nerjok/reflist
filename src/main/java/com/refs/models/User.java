@@ -30,8 +30,14 @@ public class User {
 
     private Long parentUser;
 
+    private String username;
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Advertisement> advertisement = new HashSet<>();
+
+    public  String getRole() {
+        return userRole.toString();
+    }
 
 }

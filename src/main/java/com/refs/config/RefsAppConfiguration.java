@@ -8,6 +8,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,18 +28,25 @@ public class RefsAppConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthentificationHandler successHandler;
 
-    public RefsAppConfiguration(AuthentificationHandler successHandler) {
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    public RefsAppConfiguration(AuthentificationHandler successHandler, UserDetailsService userDetailsService) {
         this.successHandler = successHandler;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/assets/**", "/webjars/**").permitAll()
+                    .antMatchers("/", "/assets/**", "/webjars/**", "/users/register", "/categories", "/advertisement", "/advertisement/*/show").permitAll()
                     .antMatchers("/login").anonymous()
-                    .anyRequest().authenticated()
-                    .antMatchers("/advertisement/**").hasRole("USER").and().exceptionHandling().accessDeniedPage("/")
+                .antMatchers("/advertisement/new").authenticated()
+                .antMatchers("/categories/**", "/category/*").hasAuthority("ADMIN")
+                .antMatchers(("/users/**")).hasAuthority("ADMIN")
+                //.antMatchers("/users/**").access("hasRole('ADMIN') or hasRole('ROLE_ADMIN')")
+                .antMatchers("/advertisement/**").hasRole("USER").and().exceptionHandling().accessDeniedPage("/")
                     .and()
 
                 .formLogin()
@@ -49,7 +57,7 @@ public class RefsAppConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                     .permitAll();
     }
-
+/*
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
@@ -62,17 +70,22 @@ public class RefsAppConfiguration extends WebSecurityConfigurerAdapter {
 
         return new InMemoryUserDetailsManager(user);
     }
-
+*/
     @Bean
     public LayoutDialect layoutDialect() {
         return new LayoutDialect();
     }
-/*
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    */
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+    }
+
 }
 /*
 

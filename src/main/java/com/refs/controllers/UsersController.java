@@ -65,4 +65,10 @@ public class UsersController {
         userService.deleteById(new Long(id));
         return "redirect:/users";
     }
+
+    @PostMapping("/users/register")
+    public String registerUser(@ModelAttribute UserCommand command) {
+        UserCommand savedCommand = userService.saveUserCommand(command);
+        return "redirect:/users";
+    }
 }

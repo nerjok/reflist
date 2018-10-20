@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 @Data
 public class UserCommandToUser  implements Converter<UserCommand, User> {
 
-    //@Autowired
-    //private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public User convert(UserCommand source) {
@@ -30,8 +30,8 @@ public class UserCommandToUser  implements Converter<UserCommand, User> {
         user.setName(source.getName());
         user.setLastName(source.getLastName());
         user.setParentUser(source.getParentUser());
-        //user.setPassword(bCryptPasswordEncoder.encode(source.getPassword()));
-        user.setPassword(source.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(source.getPassword()));
+        user.setUsername(source.getUsername());
         user.setUserRole(source.getUserRole());
 
         return user;

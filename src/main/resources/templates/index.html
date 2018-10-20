@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html layout:decorate="~{layouts/index}" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.springframework.org/schema/data/jaxb" >
     <meta charset="UTF-8">
     <title>Index file</title>
 
@@ -19,24 +19,29 @@
 
 </head>
 <body>
-    <div class="container" style="margin-top: 20px">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="panel panel-primary">
+    <div class="container" style="margin-top: 20px" layout:fragment="content">
+        <div>Latest entries by categories bellow</div>
 
-                    <div class="panel-heading">
-                        <h1 class="panel-title">My advertisements!</h1>
-                    </div>
-                    <div class="panel-body">
-                    </div>
-                </div>
-            </div>
-        </div>
+                            <div class="row" th:if="${not #lists.isEmpty(categories)}"  >
+
+                                <div class="col-md-4" th:each="category : ${categories}">
+                                    <div class="panel panel-primary">
+
+                                        <div class="panel-heading">
+                                            <h1 class="panel-title" th:text="${category.name}">>My advertisements!</h1>
+                                        </div>
+                                        <div class="panel-body" th:if="${not #lists.isEmpty(category.advertisements)}" th:each="advertisement,aStat : ${category.advertisements}" th:unless="${aStat.index > 7}">
+
+                                            <a href="#"  th:href="@{'/advertisement/' + ${advertisement.id} + '/show'}" th:text="${advertisement.title}" >View</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+    <div th:replace="layouts/footer :: 'footer'">
+        &copy; 2016 The Static Templates
     </div>
 </body>
 </html>
-<script>
-    $(document).ready(function() {
-console.log('kuku');
-    });
-</script>

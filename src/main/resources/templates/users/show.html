@@ -13,14 +13,15 @@
                 </div>
                 <div class="panel-body">
 
-                    <a href="/category/new">New Category</a>
                     <table class="table">
                         <thead class="thead-inverse">
                         <tr>
                             <th>ID</th>
-                            <th>Description</th>
-                            <th>View</th>
-                            <th>Update</th>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Lastname</th>
+                            <th>Parent User</th>
+                            <th>Role</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
@@ -42,6 +43,7 @@
 
                         <tr>
                             <td th:text="${user.id}">ID</td>
+                            <td th:text="${user.username}"></td>
                             <td th:text="${user.name}">sdsfsd</td>
                             <td th:text="${user.lastName}">View</a></td>
                             <td th:text="${user.parentUser}">Update</td>

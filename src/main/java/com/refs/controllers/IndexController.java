@@ -1,5 +1,7 @@
 package com.refs.controllers;
 
+import com.refs.models.Category;
+import com.refs.services.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,12 @@ import java.util.Set;
 @Controller
 public class IndexController {
     public String hello;
+    public CategoryService categoryService;
+
+    public IndexController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
 
 
     @RequestMapping({"", "/", "/index"})
@@ -23,6 +31,7 @@ public class IndexController {
 
     Set<String> advertisement = new HashSet<>();
         model.addAttribute("advertisements2", advertisement);
+        model.addAttribute("categories", categoryService.getCategories());
 
         return "index";
     }

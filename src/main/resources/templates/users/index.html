@@ -14,11 +14,11 @@
                 </div>
                 <div class="panel-body">
 
-                    <a href="/user/new">New User</a>
                     <table class="table" th:if="${not #lists.isEmpty(users)}">
                         <thead class="thead-inverse">
                         <tr>
                             <th>ID</th>
+                            <th>Username</th>
                             <th>Name</th>
                             <th>Lastname</th>
                             <th>Parent User</th>
@@ -44,6 +44,7 @@
 
                         <tr th:each="user : ${users}" >
                             <td th:text="${user.id}">ID</td>
+                            <td th:text="${user.username}"></td>
                             <td th:text="${user.name}">sdsfsd</td>
                             <td th:text="${user.lastName}">View</a></td>
                             <td th:text="${user.parentUser}">Update</td>
