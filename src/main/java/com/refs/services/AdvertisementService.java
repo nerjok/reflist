@@ -11,6 +11,8 @@ public interface AdvertisementService {
 
     Set<Advertisement> getAdvertisements();
 
+    Set<Advertisement> getMyAdvertisements();
+
     Advertisement findById(Long id);
 
     AdvertisementCommand findCommandById(Long id);

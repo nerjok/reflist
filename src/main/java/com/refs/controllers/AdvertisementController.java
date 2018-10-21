@@ -7,11 +7,17 @@ import com.refs.commands.CommentCommand;
 import com.refs.exceptions.NotFoundException;
 import com.refs.models.Advertisement;
 import com.refs.models.Category;
+import com.refs.models.CustomUser;
+import com.refs.models.User;
 import com.refs.services.AdvertisementService;
 import com.refs.services.CategoryService;
 import com.refs.services.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,6 +51,16 @@ public class AdvertisementController {
 
         return "advertisements/index";
     }
+
+    @GetMapping("/advertisement/myadvertisements")
+    public String myAdvertisements(Model model) {
+
+
+        model.addAttribute("advertisements", advertisementService.getMyAdvertisements());
+
+        return "advertisements/index";
+    }
+
 
     @GetMapping("/advertisement/{id}/show")
     public String showById(@PathVariable String id, Model model){

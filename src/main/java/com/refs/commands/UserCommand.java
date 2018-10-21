@@ -30,4 +30,7 @@ public class UserCommand {
     private String password;
 
     private String username;
+
+    private Set<AdvertisementCommand> advertisements = new HashSet();
+
 }

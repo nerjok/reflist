@@ -5,8 +5,12 @@ import com.refs.converters.AdvertisementCommandToAdvertisement;
 import com.refs.converters.AdvertisementToAdvertisementCommand;
 import com.refs.exceptions.NotFoundException;
 import com.refs.models.Advertisement;
+import com.refs.models.User;
 import com.refs.repository.AdvertisementRepository;
+import com.refs.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +25,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     private final AdvertisementRepository advertisementRepository;
     private final AdvertisementCommandToAdvertisement advertisementCommandToAdvertisement;
     private final AdvertisementToAdvertisementCommand advertisementToAdvertisementCommand;
+    private final UserRepository userRepository;
 
-    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, AdvertisementCommandToAdvertisement advertisementCommandToAdvertisement, AdvertisementToAdvertisementCommand advertisementToAdvertisementCommand) {
+    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, AdvertisementCommandToAdvertisement advertisementCommandToAdvertisement, AdvertisementToAdvertisementCommand advertisementToAdvertisementCommand, UserRepository userRepository) {
         this.advertisementRepository = advertisementRepository;
         this.advertisementCommandToAdvertisement = advertisementCommandToAdvertisement;
         this.advertisementToAdvertisementCommand = advertisementToAdvertisementCommand;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -37,6 +43,31 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         Set<Advertisement> advertisementSet = new HashSet<>();
 
         advertisementRepository.findAll().iterator().forEachRemaining(advertisementSet::add);
+        return advertisementSet;
+    }
+
+    @Override
+    public Set<Advertisement> getMyAdvertisements() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+
+        if (principal instanceof UserDetails) {
+             username = ((UserDetails)principal).getUsername();
+        } else {
+             username = principal.toString();
+        }
+
+
+        User user = userRepository.findByUsername(username);
+        log.debug(user.getLastName());
+        System.out.println(user.getAdvertisement().size());
+        System.out.println(user.getId());
+
+        Set<Advertisement> advertisementSet = new HashSet<>();
+
+        //advertisementRepository.findAll("user_id" = user.getId())
+        user.getAdvertisement().iterator().forEachRemaining(advertisementSet::add);
+
         return advertisementSet;
     }
 

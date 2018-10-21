@@ -22,7 +22,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#" th:href="@{'/advertisement/'}">Advertisements <span class="sr-only">(current)</span></a></li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="active"><a href="#" th:href="@{'/advertisement/'}">Advertisements <span class="sr-only">(current)</span></a></li>
+                    <li ><a href="#" th:href="@{'/advertisement/myadvertisements'}">My Advertisements</a></li>
                     <li ><a href="#" th:href="@{'/advertisement/new'}">New Advertisement</a></li>
                     <li sec:authorize="hasAuthority('ADMIN')"><a href="#" th:href="@{'/categories/'}">Categories</a></li>
                     <li sec:authorize="hasAuthority('ADMIN')"><a href="#" th:href="@{'/category/new'}">New category</a></li>

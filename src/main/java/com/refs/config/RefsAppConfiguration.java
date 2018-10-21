@@ -40,13 +40,14 @@ public class RefsAppConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/assets/**", "/webjars/**", "/users/register", "/categories", "/advertisement", "/advertisement/*/show").permitAll()
+                    .antMatchers("/", "/assets/**", "/webjars/**", "/users/register", "/categories", "/advertisement/*/show").permitAll()
                     .antMatchers("/login").anonymous()
                 .antMatchers("/advertisement/new").authenticated()
                 .antMatchers("/categories/**", "/category/*").hasAuthority("ADMIN")
                 .antMatchers(("/users/**")).hasAuthority("ADMIN")
                 //.antMatchers("/users/**").access("hasRole('ADMIN') or hasRole('ROLE_ADMIN')")
-                .antMatchers("/advertisement/**").hasRole("USER").and().exceptionHandling().accessDeniedPage("/")
+                .antMatchers("/advertisement/", "/advertisement").hasAuthority("ADMIN")
+                .antMatchers("/advertisement/**").hasAnyAuthority("ADMIN, USER") //.hasRole("USER").and().exceptionHandling().accessDeniedPage("/")
                     .and()
 
                 .formLogin()
