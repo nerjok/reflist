@@ -27,7 +27,10 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     private final AdvertisementToAdvertisementCommand advertisementToAdvertisementCommand;
     private final UserRepository userRepository;
 
-    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, AdvertisementCommandToAdvertisement advertisementCommandToAdvertisement, AdvertisementToAdvertisementCommand advertisementToAdvertisementCommand, UserRepository userRepository) {
+    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository,
+                                    AdvertisementCommandToAdvertisement advertisementCommandToAdvertisement,
+                                    AdvertisementToAdvertisementCommand advertisementToAdvertisementCommand,
+                                    UserRepository userRepository) {
         this.advertisementRepository = advertisementRepository;
         this.advertisementCommandToAdvertisement = advertisementCommandToAdvertisement;
         this.advertisementToAdvertisementCommand = advertisementToAdvertisementCommand;

@@ -6,6 +6,7 @@ import com.refs.converters.AdvertisementToAdvertisementCommand;
 import com.refs.exceptions.NotFoundException;
 import com.refs.models.Advertisement;
 import com.refs.repository.AdvertisementRepository;
+import com.refs.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -30,12 +31,18 @@ public class AdvertisementServiceImplTest {
     AdvertisementCommandToAdvertisement advertisementCommandToAdvertisement;
     @Mock
     AdvertisementToAdvertisementCommand advertisementToAdvertisementCommand;
+    @Mock
+    UserRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        advertisementService = new AdvertisementServiceImpl(advertisementRepository, advertisementCommandToAdvertisement, advertisementToAdvertisementCommand);
+        advertisementService = new AdvertisementServiceImpl(advertisementRepository,
+                                                            advertisementCommandToAdvertisement,
+                                                             advertisementToAdvertisementCommand,
+                                                             userRepository
+                );
     }
 
     @Test
